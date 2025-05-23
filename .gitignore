@@ -1,0 +1,57 @@
+# === PYTHON ===
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+
+# === Ignore local environment inside MVP/ ===
+MVP/Lib/
+MVP/Scripts/
+MVP/include/
+
+# Virtual environment
+venv/
+env/
+ENV/
+Lib/
+MVP/Lib/
+MVP/Lib/site-packages/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# === ENV / SECRETS ===
+.env
+*.json
+*.firebase-adminsdk.json
+
+# === VSCODE ===
+.vscode/
+
+# === SYSTEM FILES ===
+.DS_Store
+Thumbs.db
+
+# === FIREBASE ===
+.firebase/
+.firebaserc
+firebase-debug.log*
+firebase-debug.*.log*
+
+# === LOGS ===
+logs/
+*.log
+
+# === TEST / COVERAGE ===
+coverage/
+.nyc_output/
+
+# === NODE ARTIFACTS (OPTIONAL) ===
+node_modules/
+*.tgz
