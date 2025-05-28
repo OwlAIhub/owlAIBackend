@@ -1,3 +1,5 @@
+# main.py
+
 from fastapi import FastAPI
 from api import (
     user_route,
@@ -16,7 +18,8 @@ from api import (
     motivational_prompt_route,
     user_activity_route,
     ai_training_log_route,
-    language_variant_route
+    language_variant_route,
+    ask_route  # <-- includes the Gemini + Pinecone /ask route
 )
 
 app = FastAPI()
@@ -39,6 +42,7 @@ app.include_router(motivational_prompt_route.router, prefix="/prompt", tags=["Mo
 app.include_router(user_activity_route.router, prefix="/activity", tags=["User Activity"])
 app.include_router(ai_training_log_route.router, prefix="/ai-log", tags=["AI Training Log"])
 app.include_router(language_variant_route.router, prefix="/variant", tags=["Language Variant"])
+app.include_router(ask_route.ask_router, prefix="/ask", tags=["Ask"])  # Register Ask endpoint
 
 @app.get("/")
 def root():
