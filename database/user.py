@@ -2,11 +2,13 @@ from database.firebase_connection import db
 from firebase_admin import firestore
 import uuid
 
-# Create a new user
-def create_user(name, email, mobile_number, gender=None, age_group=None, region=None, exam_ids=None, referral_code=None):
+# Create a new user with optional questionnaire responses
+def create_user(name, email, mobile_number, gender=None, age_group=None, region=None, exam_ids=None, referral_code=None, additional_data=None):
     user_id = str(uuid.uuid4())
     user_ref = db.collection("users").document(user_id)
-    user_ref.set({
+
+    # Base user document
+    base_data = {
         "id": user_id,
         "name": name,
         "email": email,
@@ -15,11 +17,17 @@ def create_user(name, email, mobile_number, gender=None, age_group=None, region=
         "age_group": age_group,
         "region": region,
         "exam_ids": exam_ids if exam_ids else [],
-        "last_login": firestore.SERVER_TIMESTAMP,
         "referral_code": referral_code,
+        "last_login": firestore.SERVER_TIMESTAMP,
         "created_at": firestore.SERVER_TIMESTAMP,
         "updated_at": firestore.SERVER_TIMESTAMP
-    })
+    }
+
+    # Merge any extra data (e.g., questionnaire responses)
+    if additional_data and isinstance(additional_data, dict):
+        base_data.update(additional_data)
+
+    user_ref.set(base_data)
     print(f" User {user_id} created successfully!")
     return user_id
 
@@ -34,8 +42,11 @@ def get_user(user_id):
         print(f" User {user_id} does not exist.")
         return None
 
-# Update a user
+# Update a user with validation
 def update_user(user_id, updates):
+    if not isinstance(updates, dict):
+        raise ValueError("updates must be a dictionary")
+    
     user_ref = db.collection("users").document(user_id)
     updates["updated_at"] = firestore.SERVER_TIMESTAMP
     user_ref.update(updates)
