@@ -1,10 +1,11 @@
 import requests
 
-def test_bot():
-    url = "http://127.0.0.1:8000/ask"
-    payload = {"query": "What is metacognition?"}
-    response = requests.post(url, json=payload)
-    print("\n--- RESPONSE ---\n", response.json())
+url = "http://127.0.0.1:8000/ask/"
+headers = {"Content-Type": "application/json"}
+payload = {
+    "query": "What is metacognition?",
+    "user_id": "test_user"
+}
 
-if __name__ == "__main__":
-    test_bot()
+response = requests.post(url, headers=headers, json=payload)
+print("\n--- RESPONSE ---\n", response.json())

@@ -2,8 +2,11 @@ from database.firebase_connection import db
 from firebase_admin import firestore
 import uuid
 
-# Create a new chat entry
 def save_chat(user_id, subject, unit, topic, sub_topic, question_text, response_text, source_ref_type, source_ref_id=None, media_type=None, media_url=None, topic_tags=None, feedback_rating=None):
+    if not response_text or response_text.strip() == "":
+        print("Skipping chat save: response_text is empty.")
+        return None
+
     chat_id = str(uuid.uuid4())
     chat_ref = db.collection("chats").document(chat_id)
     chat_ref.set({
@@ -28,16 +31,11 @@ def save_chat(user_id, subject, unit, topic, sub_topic, question_text, response_
     print(f"Chat {chat_id} saved successfully!")
     return chat_id
 
-# Get all chats for a user
 def get_chat_history(user_id):
     chats_ref = db.collection("chats").where("user_id", "==", user_id).order_by("timestamp")
     docs = chats_ref.stream()
+    return [doc.to_dict() for doc in docs]
 
-    print(f"Chat History for user {user_id}:")
-    for doc in docs:
-        print(doc.to_dict())
-
-# Delete a chat
 def delete_chat(chat_id):
     chat_ref = db.collection("chats").document(chat_id)
     chat_ref.delete()
