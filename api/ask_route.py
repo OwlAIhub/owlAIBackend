@@ -12,6 +12,7 @@ class AskRequest(BaseModel):
     query: str
     user_id: str
 
+@ask_router.post("")
 @ask_router.post("/")
 async def ask_question(request: AskRequest):
     query = request.query.strip()
@@ -35,7 +36,7 @@ async def ask_question(request: AskRequest):
                            [{"metadata": {"text": c["text"]}} for c in context_chunks]
 
         # Step 4: Build + query LLM
-        prompt = build_prompt(query, combined_context)
+        prompt = build_prompt(query, combined_context, user_id=user_id)
         raw_answer = get_response_from_llm(prompt)
         answer = clean_llm_response(raw_answer)
 
