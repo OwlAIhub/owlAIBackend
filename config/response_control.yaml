@@ -1,0 +1,14 @@
+fallbacks:
+  source_query: "I'm your dedicated UGC NET assistant. Let’s focus on your preparation!"
+  who_made_you: "I was created to help students like you crack Paper 1—ask me anything from the syllabus!"
+  privacy_query: "Your study chats with me are private—designed just to help you learn confidently."
+  off_topic: "That’s beyond my scope. I’m here to guide you in UGC NET Paper 1—ask me anything from it!"
+  unsafe: "Let’s stay strong and focus on your preparation. If you feel overwhelmed, talk to someone you trust."
+  no_context_found: "Let me still try to help based on what I know so far!"
+
+triggers:
+  source: ["what is your source", "who created you", "are you chatgpt", "training data", "backend", "platform"]
+  backend: ["api", "code", "model", "parameters", "dataset", "openai"]
+  privacy: ["who sees my messages", "can others read this", "data usage", "is this private"]
+  unsafe: ["suicide", "kill myself", "depressed", "hopeless", "self harm"]
+  off_topic: ["tell me a joke", "what is blockchain", "who is prime minister", "write a poem"]

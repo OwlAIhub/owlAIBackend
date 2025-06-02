@@ -2,8 +2,7 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
-import random
-from database.chats import get_chat_history  # ✅ Already implemented in your chats.py
+import random # ✅ Already implemented in your chats.py
 
 load_dotenv()
 
@@ -30,26 +29,7 @@ def get_motivational_nudge() -> str:
     return random.choice(MOTIVATIONAL_NUDGES)
 
 # 🔹 Build prompt — handles both academic queries and greetings
-def build_prompt(query: str, context_chunks: list, user_id: str = None) -> str:
-    if is_greeting(query):
-        is_returning = False
-        try:
-            history = get_chat_history(user_id)
-            is_returning = len(history) > 0
-        except Exception as e:
-            print(f"[History Error] Could not fetch chat history for greeting: {str(e)}")
-
-        greeting = "Welcome back!" if is_returning else "Hi there!"
-        nudge = get_motivational_nudge()
-
-        return (
-            "You are OwlAI, a friendly UGC NET assistant. The user greeted you casually.\n"
-            "Respond in a warm, short sentence.\n"
-            "If they are returning, say 'Welcome back!'. Always include one motivational line.\n\n"
-            f"User: {query}\n"
-            f"OwlAI: {greeting} I’m OwlAI, here to help you with UGC NET Paper 1. {nudge}"
-        )
-
+def build_prompt(query: str, context_chunks: list, user_id: str = None, intent_tag: str = "academic") -> str:
     if not context_chunks:
         context = "No prior context available."
     elif isinstance(context_chunks[0], str):
@@ -57,16 +37,41 @@ def build_prompt(query: str, context_chunks: list, user_id: str = None) -> str:
     else:
         context = "\n\n".join([c['metadata']['text'] for c in context_chunks])
 
-    return (
-        "You are OwlAI, a highly detailed assistant for UGC NET Paper 1.\n"
-        "Answer all questions thoroughly in bullet points.\n"
-        "Include explanations, elaborations, and relevant examples.\n"
-        "Keep answers focused, clear, and educational.\n"
-        "Even for basic queries, give 3–5 useful bullet points unless told otherwise.\n\n"
-        f"Context:\n{context}\n\n"
-        f"Question: {query}\n"
-        "Answer:"
-    )
+    if intent_tag == "motivational":
+        return (
+            "You're OwlAI, a mentor for UGC NET Paper 1.\n"
+            "Respond in a warm, inspirational tone. Use short bullets.\n\n"
+            f"User: {query}\n"
+            "Response:"
+        )
+    elif intent_tag == "feedback":
+        return (
+            "You are OwlAI, a feedback coach for UGC NET Paper 1.\n"
+            "Evaluate the user's learning based on their recent answers.\n"
+            "Give a percentage estimate and improvement tips.\n\n"
+            f"Context:\n{context}\n\n"
+            f"User: {query}\nAnswer:"
+        )
+    elif intent_tag == "mcq":
+        return (
+            "You're OwlAI, a quiz master for UGC NET Paper 1.\n"
+            "Present MCQs one at a time with options and explanations.\n"
+            "Mention the year if the question is from a past paper.\n\n"
+            f"User: {query}\n\nContext:\n{context}\n\nAnswer:"
+        )
+    elif intent_tag == "off_topic":
+        return (
+            "You are OwlAI. Kindly redirect the user back to UGC NET Paper 1.\n"
+            f"User: {query}\nResponse: I'm here to help with Paper 1 topics—let’s stay focused on that!"
+        )
+    else:  # academic
+        return (
+            "You are OwlAI, a detailed assistant for UGC NET Paper 1.\n"
+            "Answer all questions thoroughly in 3–5 bullet points.\n"
+            "Include explanations, examples, and keep it student-friendly.\n\n"
+            f"Context:\n{context}\n\nQuestion: {query}\nAnswer:"
+        )
+
 
 # 🔹 Call Gemini API
 def get_response_from_llm(prompt: str) -> str:
