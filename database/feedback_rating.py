@@ -28,7 +28,7 @@ def get_feedback_by_chat(chat_id):
     for doc in docs:
         print(doc.to_dict())
 
-# Update feedback (optional)
+# Update feedback
 def update_feedback(feedback_id, updates):
     feedback_ref = db.collection("feedback_ratings").document(feedback_id)
     feedback_ref.update(updates)
@@ -40,6 +40,7 @@ def delete_feedback(feedback_id):
     feedback_ref.delete()
     print(f"Feedback {feedback_id} deleted successfully!")
 
+# Get flagged chats with usefulness_score == 0
 def get_flagged_chats(min_score=0):
     feedback_ref = db.collection("feedback_ratings").where("usefulness_score", "==", min_score)
     docs = feedback_ref.stream()

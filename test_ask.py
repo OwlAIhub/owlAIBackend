@@ -2,6 +2,8 @@ import requests
 
 url = "http://127.0.0.1:8000/ask/"
 headers = {"Content-Type": "application/json"}
+
+# Test payload (you can change the query here)
 payload = {
     "query": "What is ICT in education?",
     "user_id": "test_user"

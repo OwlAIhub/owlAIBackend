@@ -13,24 +13,24 @@ def classify_intent(query: str) -> str:
         return "creator_query"
 
     # 🔹 Meta
-    if any(word in query for word in ["chatgpt", "which model", "are you gpt", "ai model"]):
+    if any(word in query for word in ["chatgpt", "which model", "are you gpt", "ai model", "what model", "who created"]):
         return "meta"
 
     # 🔹 Academic signals
-    academic_phrases = ["explain", "define", "ugc net", "syllabus", "teaching aptitude", "research methodology"]
+    academic_phrases = ["explain", "define", "ugc net", "syllabus", "teaching aptitude", "research methodology", "benefit of ugc net"]
     if any(word in query for word in academic_phrases):
         return "academic"
 
     # 🔹 MCQ and quiz
-    if any(word in query for word in ["mcq", "quiz", "test me", "practice question", "ask me question"]):
+    if any(word in query for word in ["mcq", "quiz", "test me", "practice question", "ask me question", "give me questions", "ask me questions"]):
         return "mcq"
 
     # 🔹 Feedback about user
-    if any(word in query for word in ["how prepared", "rate me", "how am i doing", "progress"]):
+    if any(word in query for word in ["how prepared", "rate me", "how am i doing", "progress", "percentage"]):
         return "feedback"
 
     # 🔹 Motivation
-    if any(word in query for word in ["motivate", "inspire", "feeling low", "why should i study"]):
+    if any(word in query for word in ["motivate", "inspire", "feeling low", "why should i study", "why should i"]):
         return "motivational"
 
     # 🔹 Casual greetings
@@ -42,7 +42,7 @@ def classify_intent(query: str) -> str:
         return "off_topic"
 
     # 🔹 Emotional support
-    if any(word in query for word in ["stressed", "anxious", "burnt out", "i'm tired", "can't do this"]):
+    if any(word in query for word in ["stressed", "anxious", "burnt out", "i'm tired", "can't do this", "feel like giving up", "hopeless"]):
         return "emotional"
 
     # 🔹 Tone modifiers

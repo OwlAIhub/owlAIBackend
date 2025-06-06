@@ -2,22 +2,25 @@
 
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.llm import build_prompt, get_response_from_llm, clean_llm_response
+from services.llm import (
+    build_prompt,
+    get_response_from_llm,
+    clean_llm_response,
+    generate_chat_title,
+    extract_topic_via_llm,
+)
 from services.vector_search import query_vector_store
 from database.chats import save_chat, get_chat_history_by_session
+from database.sessions import create_session
 from services.moderation import run_moderation_check
 from services.intent_classifier import classify_intent
-from database.sessions import create_session
 from services.session_memory import update_session_topic
-from services.llm import extract_topic_via_llm
-
-from services.llm import generate_chat_title
 from services.professional_handler import handle_professional_query
 
 ask_router = APIRouter()
 
 class AskRequest(BaseModel):
-    session_id: str  
+    session_id: str
     query: str
     user_id: str
 
@@ -39,7 +42,7 @@ async def ask_question(request: AskRequest):
     # Step 2: Intent classification
     intent = classify_intent(query)
 
-    # Step 3: Handle professional queries immediately
+    # Step 3: Handle professional queries
     if intent in ["source_query", "privacy_query", "creator_query"]:
         professional_response = handle_professional_query(intent, query)
         chat_id = save_chat(
@@ -63,14 +66,14 @@ async def ask_question(request: AskRequest):
         }
 
     try:
-        # Step 4: Context from vector store (for academic-type intents)
+        # Step 4: Vector search context (for academic-related intents)
         context_chunks = []
         if intent in ["academic", "feedback", "mcq"]:
             raw_chunks = query_vector_store(query, user_id=user_id)
             if isinstance(raw_chunks, list):
                 context_chunks = raw_chunks[:5]
 
-        # Step 5: History from this session only
+        # Step 5: Pull history from session
         history_chunks = []
         chat_docs = get_chat_history_by_session(session_id)
         relevant_docs = [doc for doc in reversed(chat_docs) if doc.get("intent") in ["academic", "mcq", "feedback"]]
@@ -79,7 +82,7 @@ async def ask_question(request: AskRequest):
             a = doc.get("response_text", "")
             history_chunks.append(f"Q: {q}\nA: {a}")
 
-        # Step 6: Build prompt and get response
+        # Step 6: Build prompt and get LLM response
         combined_context = [{"metadata": {"text": h}} for h in history_chunks] + \
                            [{"metadata": {"text": c["text"]}} for c in context_chunks]
 
@@ -88,7 +91,7 @@ async def ask_question(request: AskRequest):
         answer = clean_llm_response(raw_answer)
         title = generate_chat_title(query, answer)
 
-        # Step 7: Save only academic-type chats
+        # Step 7: Save academic-type chats
         chat_id = None
         if intent in ["academic", "mcq", "feedback"]:
             extracted_topic = extract_topic_via_llm(query)
@@ -108,7 +111,6 @@ async def ask_question(request: AskRequest):
                 intent=intent,
                 is_professional=False
             )
-
 
         return {
             "response": answer,

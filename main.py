@@ -27,14 +27,13 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(session_route.router, prefix="/session", tags=["Session"])
-app.include_router(auto_learn_route.router, prefix="/auto-learn", tags=["Auto Learning"])
+# Register all routes
 app.include_router(user_route.router, prefix="/user", tags=["User"])
 app.include_router(user_progress_route.router, prefix="/progress", tags=["User Progress"])
 app.include_router(chat_route.router, prefix="/chat", tags=["Chat"])
@@ -49,6 +48,8 @@ app.include_router(motivational_trigger_route.router, prefix="/trigger", tags=["
 app.include_router(assessment_route.router, prefix="/assessment", tags=["Assessment"])
 app.include_router(media_asset_route.router, prefix="/media", tags=["Media Asset"])
 app.include_router(motivational_prompt_route.router, prefix="/prompt", tags=["Motivational Prompt"])
+app.include_router(session_route.router, prefix="/session", tags=["Session"])
+app.include_router(auto_learn_route.router, prefix="/auto-learn", tags=["Auto Learning"])
 app.include_router(user_activity_route.router, prefix="/activity", tags=["User Activity"])
 app.include_router(ai_training_log_route.router, prefix="/ai-log", tags=["AI Training Log"])
 app.include_router(language_variant_route.router, prefix="/variant", tags=["Language Variant"])

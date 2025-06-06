@@ -5,7 +5,6 @@ def detect_language_hint(query: str) -> str:
     if "privacy" in query or "data" in query or "security" in query:
         return "Respond in clear, formal language with precise terminology."
     
-    
     hindi = re.search(r'[\u0900-\u097F]', query)
     english = re.search(r'[a-zA-Z]', query)
 
@@ -13,7 +12,8 @@ def detect_language_hint(query: str) -> str:
         return (
             "Respond in Hinglish (mix of Hindi and English). "
             "User is being informal and friendly, so you can match that tone. "
-            "Use emojis like 😊, 📚, ✅ where appropriate. Keep it warm and supportive End with an engagement question like: ‘Samjha kya?’, ‘Chalo next karein?’ or can be any thing but engaging"
+            "Use emojis like 😊, 📚, ✅ where appropriate. "
+            "Keep it warm and supportive. End with an engagement question like: ‘Samjha kya?’, ‘Chalo next karein?’ or anything similarly engaging."
         )
     elif hindi:
         return (

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from database.chats import save_chat, get_chat_history, delete_chat
+<<<<<<< HEAD
 from database.sessions import get_sessions_by_user
 from pydantic import BaseModel
 from typing import Optional
@@ -9,6 +10,10 @@ from database.chats import delete_chats_by_session
 
 
 
+=======
+from pydantic import BaseModel
+from typing import Optional
+>>>>>>> 2d81c63860a1cdaa3570f84e871396f242228972
 
 router = APIRouter()
 
@@ -50,6 +55,7 @@ def delete_chat_api(chat_id: str):
         return {"status": "deleted"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+<<<<<<< HEAD
 
 # 🔹 NEW: Get chat history by user_id (for sidebar history)
 @router.get("/history/by-user")
@@ -120,3 +126,5 @@ def delete_session_api(session_id: str):
         return {"status": "success", "message": "Session and its chats deleted"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Delete failed: {str(e)}")
+=======
+>>>>>>> 2d81c63860a1cdaa3570f84e871396f242228972
