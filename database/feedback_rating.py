@@ -39,3 +39,9 @@ def delete_feedback(feedback_id):
     feedback_ref = db.collection("feedback_ratings").document(feedback_id)
     feedback_ref.delete()
     print(f"Feedback {feedback_id} deleted successfully!")
+
+def get_flagged_chats(min_score=0):
+    feedback_ref = db.collection("feedback_ratings").where("usefulness_score", "==", min_score)
+    docs = feedback_ref.stream()
+    flagged = [doc.to_dict() for doc in docs]
+    return flagged

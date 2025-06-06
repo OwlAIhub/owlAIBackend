@@ -36,3 +36,20 @@ def end_session(session_id):
         "updated_at": firestore.SERVER_TIMESTAMP
     })
     print(f" Session {session_id} ended.")
+
+def get_sessions_by_user(user_id):
+    sessions_ref = db.collection("sessions").where("user_id", "==", user_id).order_by("start_time", direction=firestore.Query.DESCENDING)
+    docs = sessions_ref.stream()
+    return [doc.to_dict() for doc in docs]
+
+def rename_session(session_id, new_name):
+    session_ref = db.collection("sessions").document(session_id)
+    session_ref.update({
+        "custom_title": new_name,
+        "updated_at": firestore.SERVER_TIMESTAMP
+    })
+    print(f"Session {session_id} renamed to {new_name}")
+
+def delete_session(session_id):
+    db.collection("sessions").document(session_id).delete()
+    print(f"Session {session_id} deleted")

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from api import (
     user_route,
     user_progress_route,
@@ -14,15 +15,26 @@ from api import (
     assessment_route,
     media_asset_route,
     motivational_prompt_route,
+    session_route,
     user_activity_route,
     ai_training_log_route,
     language_variant_route,
-    ask_route
+    ask_route,
+    auto_learn_route
 )
 
 app = FastAPI()
 
-# Register all routes
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(session_route.router, prefix="/session", tags=["Session"])
+app.include_router(auto_learn_route.router, prefix="/auto-learn", tags=["Auto Learning"])
 app.include_router(user_route.router, prefix="/user", tags=["User"])
 app.include_router(user_progress_route.router, prefix="/progress", tags=["User Progress"])
 app.include_router(chat_route.router, prefix="/chat", tags=["Chat"])

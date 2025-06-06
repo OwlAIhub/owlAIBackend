@@ -1,32 +1,23 @@
-# services/llm.py
+import yaml
+import re
+from pathlib import Path
 
-import os
-from dotenv import load_dotenv
-load_dotenv()  # ✅ load .env first
+# Load config once
+CONFIG_PATH = Path("config/response_control.yaml")
 
-# ⛔ important: force set credentials path early
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+def load_response_config():
+    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
-import vertexai
-from vertexai.language_models import TextGenerationModel
+response_config = load_response_config()
 
-project = os.getenv("VERTEX_PROJECT_ID")
-location = os.getenv("VERTEX_LOCATION")
+# Run moderation on incoming query
+def run_moderation_check(query: str) -> str:
+    query = query.lower().strip()
 
-# ✅ Initialize Vertex with project + region
-vertexai.init(project=project, location=location)
+    for tag, triggers in response_config.get("triggers", {}).items():
+        for trigger in triggers:
+            if re.search(rf"\b{re.escape(trigger)}\b", query):
+                return response_config["fallbacks"].get(tag, None)
 
-model = TextGenerationModel.from_pretrained("text-bison")
-
-def build_prompt(query: str, context_chunks: list) -> str:
-    context = "\n\n".join([c['metadata']['text'] for c in context_chunks])
-    return (
-        f"You are OwlAI, a friendly tutor for UGC NET Paper 1.\n\n"
-        f"Context:\n{context}\n\n"
-        f"Question: {query}\n"
-        f"Answer in short, clear bullet points with examples."
-    )
-
-def get_response_from_llm(prompt: str) -> str:
-    response = model.predict(prompt=prompt, temperature=0.7, max_output_tokens=512)
-    return response.text.strip()
+    return None  # If no issue
