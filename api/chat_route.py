@@ -1,19 +1,8 @@
 from fastapi import APIRouter, HTTPException
-from database.chats import save_chat, get_chat_history, delete_chat
-<<<<<<< HEAD
-from database.sessions import get_sessions_by_user
 from pydantic import BaseModel
 from typing import Optional
-from database.sessions import rename_session
-from database.sessions import delete_session
-from database.chats import delete_chats_by_session
-
-
-
-=======
-from pydantic import BaseModel
-from typing import Optional
->>>>>>> 2d81c63860a1cdaa3570f84e871396f242228972
+from database.chats import save_chat, get_chat_history, delete_chat, delete_chats_by_session
+from database.sessions import get_sessions_by_user, rename_session, delete_session
 
 router = APIRouter()
 
@@ -55,7 +44,6 @@ def delete_chat_api(chat_id: str):
         return {"status": "deleted"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-<<<<<<< HEAD
 
 # 🔹 NEW: Get chat history by user_id (for sidebar history)
 @router.get("/history/by-user")
@@ -72,7 +60,6 @@ def get_chat_history_by_user(user_id: str):
         return {"status": "success", "data": cleaned}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch history: {str(e)}")
-
 
 @router.get("/sidebar/sessions")
 def get_sidebar_sessions(user_id: str):
@@ -104,7 +91,7 @@ def get_sidebar_sessions(user_id: str):
         return {"status": "success", "data": sidebar_data}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch sidebar sessions: {str(e)}")
-    
+
 class RenameSessionRequest(BaseModel):
     session_id: str
     new_name: str
@@ -117,7 +104,6 @@ def rename_session_api(req: RenameSessionRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Rename failed: {str(e)}")
 
-
 @router.delete("/session/{session_id}")
 def delete_session_api(session_id: str):
     try:
@@ -126,5 +112,3 @@ def delete_session_api(session_id: str):
         return {"status": "success", "message": "Session and its chats deleted"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Delete failed: {str(e)}")
-=======
->>>>>>> 2d81c63860a1cdaa3570f84e871396f242228972

@@ -1,55 +1,56 @@
-# ✅ Updated intent_classifier.py
-# Clean and structured intent classifier with tone awareness
+# services/intent_tone_classifier.py
+import re
 
-def classify_intent(query: str) -> str:
-    query = query.lower().strip()
+def classify_intent_tone_language(query: str) -> dict:
+    q = query.strip().lower()
 
-    # 🔹 Professional/system queries
-    if any(p in query for p in ["source", "citation", "reference", "where did you learn"]):
-        return "source_query"
-    if any(p in query for p in ["privacy", "data policy", "gdpr", "who can read", "is my data"]):
-        return "privacy_query"
-    if any(p in query for p in ["who made you", "creator", "developer", "openai"]):
-        return "creator_query"
+    # --- Language Detection ---
+    hindi_chars = re.findall(r'[\u0900-\u097F]', q)
+    english_chars = re.findall(r'[a-zA-Z]', q)
+    hindi_words = ["hai", "kya", "nahi", "karna", "kyun", "tum", "mera", "batao", "shuru"]
 
-    # 🔹 Meta
-    if any(word in query for word in ["chatgpt", "which model", "are you gpt", "ai model", "what model", "who created"]):
-        return "meta"
+    is_hindi_script = len(hindi_chars) > 5
+    is_hinglish = any(word in q for word in hindi_words) and len(english_chars) > 3
+    language = "HINDI" if is_hindi_script else "HINGLISH" if is_hinglish else "ENGLISH"
 
-    # 🔹 Academic signals
-    academic_phrases = ["explain", "define", "ugc net", "syllabus", "teaching aptitude", "research methodology", "benefit of ugc net"]
-    if any(word in query for word in academic_phrases):
-        return "academic"
+    # --- Tone Detection ---
+    if any(t in q for t in ["simple terms", "like a kid", "easy way"]):
+        tone = "simple"
+    elif any(t in q for t in ["professor", "deep dive", "in detail"]):
+        tone = "detailed"
+    elif any(t in q for t in ["feeling low", "can't do this", "tired", "hopeless"]):
+        tone = "emotional"
+    elif any(t in q for t in ["hi", "hello", "namaste", "kaise ho"]):
+        tone = "casual"
+    else:
+        tone = "neutral"
 
-    # 🔹 MCQ and quiz
-    if any(word in query for word in ["mcq", "quiz", "test me", "practice question", "ask me question", "give me questions", "ask me questions"]):
-        return "mcq"
+    # --- Intent Detection ---
+    if any(p in q for p in ["source", "citation", "where did you learn"]):
+        intent = "source_query"
+    elif any(p in q for p in ["privacy", "data policy", "who can read"]):
+        intent = "privacy_query"
+    elif any(p in q for p in ["creator", "who made you", "developer"]):
+        intent = "creator_query"
+    elif any(p in q for p in ["quiz", "test me", "practice question", "ask me question"]):
+        intent = "quiz_start"
+    elif any(p in q for p in ["next question", "continue quiz", "resume quiz"]):
+        intent = "quiz_continue"
+    elif q.strip().upper() in ["A", "B", "C", "D"]:
+        intent = "quiz_answer"
+    elif any(p in q for p in ["review", "how did i do", "my score"]):
+        intent = "quiz_review"
+    elif any(p in q for p in ["repeat", "again", "say that again", "rephrase"]):
+        intent = "rephrase"
+    elif any(p in q for p in ["hi", "hello", "hey", "kaise ho"]):
+        intent = "greeting"
+    elif any(p in q for p in ["motivate", "inspire", "burnt out"]):
+        intent = "motivational"
+    else:
+        intent = "academic"
 
-    # 🔹 Feedback about user
-    if any(word in query for word in ["how prepared", "rate me", "how am i doing", "progress", "percentage"]):
-        return "feedback"
-
-    # 🔹 Motivation
-    if any(word in query for word in ["motivate", "inspire", "feeling low", "why should i study", "why should i"]):
-        return "motivational"
-
-    # 🔹 Casual greetings
-    if any(word in query for word in ["hello", "hi", "hey", "what's up", "kaise ho", "namaste"]):
-        return "casual"
-
-    # 🔹 Off-topic
-    if any(word in query for word in ["cricket", "movie", "joke", "music", "weather", "news"]):
-        return "off_topic"
-
-    # 🔹 Emotional support
-    if any(word in query for word in ["stressed", "anxious", "burnt out", "i'm tired", "can't do this", "feel like giving up", "hopeless"]):
-        return "emotional"
-
-    # 🔹 Tone modifiers
-    if any(tone in query for tone in ["like a kid", "in simple terms", "explain like"]):
-        return "tone_simple"
-    if any(tone in query for tone in ["like a professor", "in detail", "deep dive"]):
-        return "tone_detailed"
-
-    # 🔹 Default fallback
-    return "academic"
+    return {
+        "intent": intent,
+        "tone": tone,
+        "language": language
+    }
