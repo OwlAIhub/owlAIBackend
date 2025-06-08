@@ -1,51 +1,53 @@
-from collections import defaultdict
+import firebase_admin
+from firebase_admin import credentials, firestore
+import os
 
-# In-memory session storage
-session_memory = defaultdict(dict)
+# Load Firebase credentials and initialize app
+if not firebase_admin._apps:
+    cred = credentials.Certificate("owl-ai-1ef31-firebase-adminsdk-fbsvc-4788ce64d5.json")
+    firebase_admin.initialize_app(cred)
 
-def update_session_topic(session_id: str, topic: str, aspect: str = None):
-    session_memory[session_id]["current_topic"] = topic
-    if aspect:
-        session_memory[session_id]["last_aspect"] = aspect
+# Initialize Firestore DB client
+db = firestore.client()
 
-def get_session_topic(session_id: str):
-    return session_memory.get(session_id, {}).get("current_topic", None)
 
-def get_last_aspect(session_id: str):
-    return session_memory.get(session_id, {}).get("last_aspect", None)
+# 🔍 Get full session data
+def get_session_state(session_id: str):
+    try:
+        doc_ref = db.collection("sessions").document(session_id)
+        doc = doc_ref.get()
+        if doc.exists:
+            return doc.to_dict()
+        else:
+            return {}
+    except Exception as e:
+        print("[Firestore] get_session_state Error:", str(e))
+        return {}
 
-def set_last_mood(session_id: str, mood: str):
-    session_memory[session_id]["last_mood"] = mood
 
-def get_last_mood(session_id: str):
-    return session_memory.get(session_id, {}).get("last_mood", None)
+# 🧾 Save a new message pair to history
+def add_to_history(session_id: str, message_pair: dict):
+    try:
+        doc_ref = db.collection("sessions").document(session_id)
+        current = get_session_state(session_id)
+        history = current.get("history", [])
+        history.append(message_pair)
+        doc_ref.set({"history": history}, merge=True)
+    except Exception as e:
+        print("[Firestore] add_to_history Error:", str(e))
 
-def set_active_quiz_topic(session_id: str, topic: str):
-    session_memory[session_id]["active_quiz_topic"] = topic
 
-def get_active_quiz_topic(session_id: str):
-    return session_memory.get(session_id, {}).get("active_quiz_topic", None)
+# 🧹 Reset a session
+def clear_session(session_id: str):
+    try:
+        db.collection("sessions").document(session_id).set({}, merge=True)
+    except Exception as e:
+        print("[Firestore] clear_session Error:", str(e))
 
-def start_quiz(session_id: str, topic: str):
-    session_memory[session_id]["quiz"] = {
-        "topic": topic,
-        "score": 0,
-        "index": 0,
-        "questions": [],
-        "answers": [],
-        "mode": "ask"
-    }
 
-def get_quiz_state(session_id: str):
-    return session_memory.get(session_id, {}).get("quiz", None)
-
-def update_quiz_state(session_id: str, quiz_data: dict):
-    session_memory[session_id]["quiz"] = quiz_data
-
-def reset_quiz(session_id: str):
-    if "quiz" in session_memory.get(session_id, {}):
-        del session_memory[session_id]["quiz"]
-
-def reset_session_memory(session_id: str):
-    if session_id in session_memory:
-        del session_memory[session_id]
+# 🧠 Set active topic or quiz mode
+def set_session_data(session_id: str, updates: dict):
+    try:
+        db.collection("sessions").document(session_id).set(updates, merge=True)
+    except Exception as e:
+        print("[Firestore] set_session_data Error:", str(e))

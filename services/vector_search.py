@@ -27,7 +27,9 @@ def query_vector_store(query_text: str, top_k: int = 5, user_id: str = None):
             return []
 
         # ✅ Format matches the structure expected by llm.py
-        return [{"metadata": match.metadata} for match in res.matches if "text" in match.metadata]
+        # ✅ Return structure compatible with llm.py (expects 'page_content')
+        return [{"page_content": match.metadata.get("text", "")} for match in res.matches if "text" in match.metadata]
+
 
     except Exception as e:
         print(f"[Pinecone Query Error] {str(e)}")
