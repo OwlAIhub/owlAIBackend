@@ -16,10 +16,21 @@ def create_session(user_id, session_type="study", device_type="mobile", ip_addre
         "device_type": device_type,
         "ip_address": ip_address,
         "created_at": firestore.SERVER_TIMESTAMP,
-        "updated_at": firestore.SERVER_TIMESTAMP
+        "updated_at": firestore.SERVER_TIMESTAMP,
+        
+        "learning_state": {
+            "current_unit": "UGC NET",
+            "current_subtopic": "Introduction",
+            "learning_stage": "explanation",
+            "has_done_quiz": False,
+            "last_question_type": "None"
+        },
+        "history": [],
+        "quiz_state": {}
     })
     print(f"Session {session_id} started for user {user_id}!")
     return session_id
+
 
 # Update session (e.g., adding questions, marking end time)
 def update_session(session_id, updates):
@@ -39,9 +50,10 @@ def end_session(session_id):
 
 # Get all sessions by user, newest first
 def get_sessions_by_user(user_id):
-    sessions_ref = db.collection("sessions").where("user_id", "==", user_id).order_by("start_time", direction=firestore.Query.DESCENDING)
-    docs = sessions_ref.stream()
-    return [doc.to_dict() for doc in docs]
+    sessions_ref = db.collection("sessions").where("user_id", "==", user_id).order_by("start_time", direction=firestore.Query.DESCENDING).stream()
+    for doc in sessions_ref:
+        return doc.to_dict()
+    return None
 
 # Rename session (used for custom titles)
 def rename_session(session_id, new_name):
