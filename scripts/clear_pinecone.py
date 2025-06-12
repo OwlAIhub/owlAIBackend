@@ -10,7 +10,7 @@ pc = pinecone.Pinecone(api_key=api_key)
 index_name = "ugc-net-data"
 index = pc.Index(index_name)
 
-# DANGER: this deletes everything in your index
+# DANGER: this deletes everything in our index
 index.delete(delete_all=True)
 
 print(f"Index '{index_name}' has been cleared.")

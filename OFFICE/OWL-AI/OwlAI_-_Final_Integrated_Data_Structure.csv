@@ -1,0 +1,14 @@
+Collection Name,Key Fields,Purpose
+users,"id, auth_id, name, learning_style, preferred_language, joined_on, motivation_type","User profile, preferences, motivation stage tracking (Firebase or custom auth)"
+sessions,"session_id, user_id, start_time, end_time, questions_asked, recap_shown","Sessions grouping, recaps, streak logic"
+user_progress,"user_id, topic_id, completion, last_accessed",Tracks how much of each topic the user has completed and when last accessed
+projects,"project_id, user_id, title, subject, unit, topic, sub_topic, saved_content_ids[], notes[], created_on, shared_with[]",Custom learning folders with saved items and notes
+chats,"chat_id, user_id, subject, unit, topic, sub_topic, question_text, response_text, timestamp, source_ref, topic_tags, media_type, media_url, feedback_rating","Chat logs with AI, fully tagged with syllabus hierarchy, media, and feedback"
+glossary_terms,"term, definition, user_mentions, linked_chats[], subject, unit, topic, sub_topic, source_ref","Glossary of student-asked terms, connected to their academic structure"
+doubt_trends,"feed_id, title, subject, unit, topic, sub_topic, questions[], frequency[], last_updated",Shows what doubts are trending per subject and concept area
+learning_content,"id, content_type, metadata (JSONB: question, formula, tags, difficulty)","Flexible learning content types: numerical, diagrams, text with metadata (JSONB)"
+motivational_triggers,"id, condition_type, trigger_value, message_template, visual_emoji","Stores conditions and messages for motivational nudges (e.g., 5-day streak)"
+subjects,"id, name, current_version",Syllabus root: subject list and version mapping
+media_assets,"media_id, type, description, tags[], subject, unit, topic, sub_topic, linked_topic, uploaded_by, created_on",Stores visual assets used in responses or tests
+motivational_prompts,"prompt_id, text, stage_trigger, user_type_tags[], visual_type, delivery_time",Motivational messages and visuals triggered by progress
+user_activity,"session_id, user_id, question_log (TSVECTOR), confusion_flag, auto_generated_tags","Logs activity for search, tagging, and AI-driven assistance"

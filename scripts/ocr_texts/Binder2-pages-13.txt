@@ -1,0 +1,886 @@
+
+
+=== Page 1 ===
+Every S is P No Sis P
+A SO ——_————E
+Subalterns Coniradictories Subalterns
+
+LZ
+
+| ——_______ Subcontraries —__——-O
+Some S is P Some S is not P
+
+Contrary: When two universal propositions differ
+only in quality. By definition, both opposite propo-
+sitions can be both false and true at the same time.
+If one of them is true, the other must necessarily be
+false. If one is false, the other may be true or false.
+That is, if ‘E’ is true, then ‘A’ is true; ‘T’ is false
+
+Sub-contraries: Contrasting propositions can be
+true simultaneously, but they cannot be false at the
+same time. If one of them is true, thé other may be
+true or false, but if one of them is false, the other must
+be true. That is, if ‘T’ is true, then ‘E’ is true; ‘O’ is true.
+
+Sub - alternation: When two prepositions differ only
+in quantity (one is universal and the other is special),
+such an opposition is said to be sub — alternation.
+These propositions may be simultaneously true or
+simultaneously false. That is, if ‘O’ is true, then ‘E’ is
+false; ‘T’ is true
+
+Thus, if‘all men are mortal’ is true, then we can validly
+infer that No men are mortal is false’(Contrary). Some
+men are mortal is true (Sub — alteration) and ‘Some
+men are not mortal’ (contradictory proposition).
+
+. (c) Information and Communication Technology (ICT)
+
+INFLIBNET — It is abbreviation of Information and
+Library Network Centre. It is an Autonomous Inter—
+University Centre (IUC) of UGC. It is located in
+Gandhinagar, Gujarat. It is a major National Pro-
+gramme initiated by the UGC in March 1991 as a
+project under the IUCAA, it became an independent
+Inter-University Centre in June 1996. INFLIBNET is
+involved in modernizing university libraries in India
+using the state-of-art technologies for the optimum
+utilisation of information. INFLIBNET is set out to be
+a major player in promoting scholarly communication
+among academicians and researchers in India.
+
+The following institutions and projects are linked
+with it.
+
+1. Shodhganga — A Reservoir of Indian Theses
+
+2. INDCAT -— Online Union Catalogue of Indian
+Universities
+
+3. SOUL — State-of-art Integrated Library Manage-
+ment System
+
+2.45
+
+4. e-ShodhSindhu — Consortium for Higher Educa-
+tion e-Resources
+
+5. ShodhShuddhi —- Provides Plagiarism Detection
+Software to Institutions
+
+6. IRINS — Research Information Management Sys-
+tem for Institutions
+
+_ 7, Vidya-Mitra — Integrated e~Content Portal
+
+16.
+
+17.
+
+8. Vidwan ~ Expert Database & National Researcher
+Network
+
+9. e-PG Pathshala - an initiative of the Ministry of
+Education under its National Mission on Education
+through ICT (NME-ICT) being executed by UGC.
+
+10. e-Pathya: It is one the verticals of e~PG Pathshala
+which is software driven course / content package
+that facilitates students pursuing higher education
+(PG level) in distance learning as well as campus
+learning mode. it also facilitates offline access.
+
+11. e~Adhyayan (e-Books): e-Adhyayan is a plat-
+form to provide 700+ e-Books for the Post-Gradu-
+ate Courses. All the e-Books are derived from e—PG
+Pathshala courses. It also facilitates play—list of video
+content.
+
+12. UGC-MOOCs: It is one of vertical to produce
+course on Post Graduate subjects in SWAYAM (Online
+Courses, a Ministry of Education initiative). UGC
+is one of the national coordinator of SWAYAM, and
+INFLIBNET is technical partner for UGC-MOOCs.
+
+(d) Information and Communication Technology (ICT)
+
+Routers are networking devices. They are responsible
+for receiving, analysing, and forwarding data pack-
+ets among the connected computer networks. On the
+arrival of a data packet, the router inspects the des-
+tination address, consults its routing tables to decide
+the optimal route and then transfers the packet along
+this route.
+
+A router can be used both in LANs (Local Area Net-
+works) and WANs (Wide Area Networks). Routers are
+more expensive than other networking devices like
+hubs, bridges and switches. Routers are manufactured
+by some popular companies such as Cisco, D-Link,
+HP, Nortel etc.
+
+A router is a layer 3. or network layer device in OSI
+Model while data link layer works in the layer 2 of OSI
+Model. Data link layer is responsible for maintaining
+the data link between two hosts or nodes.
+
+(d) Research Aptitude
+
+Survey Research
+
+Survey research a research method involving the use
+of standardized questionnaires or interviews to collect
+data about people and their preferences, thoughts,
+
+
+
+=== Page 2 ===
+and behaviors in a systematic manner. As surveys are
+used to collect data from a predefined subject(s), they
+have been counted under ‘positivism’ approach.
+
+The survey as a formal research method was pio-
+neered in the 1930-40s by sociologist Paul Lazarsfeld
+to examine the effects of the radio on political opin-
+ion formation of the United States. This method has
+since become a very popular method for quantitative
+research in the social sciences.
+
+The survey method can be used for descriptive,
+exploratory, or explanatory research.
+
+Survey research has several inherent strengths com-
+pared to other research methods due to following
+reasons.
+
+(i) Survey is an excellent vehicle to measure a wide
+variety of data - people’s preferences (politi-
+cal orientation), traits (self-esteem), attitudes
+(toward immigrants), beliefs (about a new law),
+behaviors (smoking), or factual information
+(income).
+
+(ii) It is ideally suited for remotely collecting data
+about a population. For example, a large nation
+such as India or its state UP, MP, Maharashtra
+that can be covered using mail~in, electronic
+mail, or telephone surveys. Researches can use
+well planned sampling to ensure that the popula-
+tion is adequately represented in a small sample.
+
+(iii) Interviews may be the only way of reaching cer-
+tain population groups such as the homeless or
+illegal immigrants for which there is no sampling
+frame available.
+
+(iv) Survey research is economical in terms of
+researcher time, effort and cost than most other
+methods such as experimental research and case
+research.
+
+At the same time, survey research also has some
+unique disadvantages. It is subject to a large number
+of biases such as non-response bias, sampling bias,
+social desirability bias, and recall bias, etc.
+
+Depending on data collection techniques, survey
+
+research can be divided into two broad categories:
+
+Gi) Questionnaire surveys -— mail-in, group-admin-
+istered, or online surveys), and
+
+(ii) Interview surveys — personal, telephone, or
+focus group interviews (These have been dis-
+cussed in detail in second unit of Pearson title for
+NTA-—NET exam).
+
+Constructing a survey questionnaire (or interview-
+ing) is an art. For the benefit of research students,
+the following responses to structured questions have
+been suggested.
+
+(i) Dichotomous response — responses such as true/
+false, yes/no, or agree/disagree. Is MSP required for
+crops — Yes / No
+
+(ii) Nominal response — more than two unordered
+options. What is your industry of employment: manu-
+facturing / supply chain / consumer services / retail /
+education.
+
+(iii) Ordinal response — more than two ordered
+options. What is your highest level of education: high
+school / college degree / graduate studies/ PG / PhD.
+
+(iv) Interval-level response — When respondents
+are presented with a 5-point or 7—point Likert scale,
+semantic differential scale, or Guttman scale etc.
+
+(v) Continuous response — When respondents enter
+a continuous (ratio-scaled) value with a meaning-
+ful zero point, such as their age or tenure in a firm.
+These responses generally tend to be of the fill-in—the
+blanks type.
+
+The survey questions should be stated in a very sim-
+ple language, preferably in active voice, and without
+complicated words or jargon so that they are clearly
+understandable by a typical respondent. Questions
+must not be biased and too much detailed.
+
+Double-barreled questions are those that can have
+multiple answers. For example, are you satisfied with
+the hardware and software provided for your work?
+
+Question should not be presumptuous such as on
+taxes — too high or too low. Avoid questions with
+built-in presumptions.
+
+‘Question sequencing’ should be proper, such as
+questions should flow logically from one to the next.
+
+Role of interviewer should be motivational for respon-
+dents. They should make a good questionnaire.
+
+Just pausing and waiting (without going into the
+next question) may suggest to respondents that the
+interviewer is waiting for more detailed response. It is
+called as ‘silent probe’.
+
+The interviewer can try the psychotherapist’s trick
+of repeating what the respondent said is called as
+‘Reflection’.
+
+Five common biases in survey research are non—
+response bias, sampling bias (excluding some peo-
+ple who don’t have some resources such as mobile
+
+- phone), social desirability bias (avoid negative opin-
+
+ions), recall bias (subjects’ motivation, memory, and
+ability to respond). Common method bias refers to
+the amount of spurious covariance shared between
+independent and dependent variables that are mea-
+sured at the same point in time such as in a cross-
+sectional survey, using the same instrument, such as
+a questionnaire.
+
+
+
+=== Page 3 ===
+wot io
+
+|
+
+|
+|
+
+18.
+
+19.
+
+20.
+
+(c) People, Development and Environment
+Sustainable Development Goals (SDGs)
+
+SDGs, also known as the Global Goals, were adopted
+by the United Nations in 2015 as a universal call to
+action to end poverty, protect the planet, and ensure
+that by 2030 all people enjoy peace and prosperity.
+
+The 17 SDGs are integrated—-they recognize that
+action in one area will affect outcomes in others, and
+that development must balance social, economic and
+environmental sustainability.
+
+GOAL 1: NO POVERTY
+
+GOAL 2: ZERO HUNGER
+
+GOAL 3: GOOD HEALTH AND WELL-BEING
+
+GOAL 4: QUALITY EDUCATION
+
+GOAL 5: GENDER EQUALITY
+
+GOAL 6: CLEAN WATER AND SANITATION
+
+GOAL 7: AFFORDABLE AND CLEAN ENERGY
+
+GOAL 8: DECENT WORK AND ECONOMIC GROWTH
+
+GOAL 9: INDUSTRY, INNOVATION AND
+INFRASTRUCTURE
+
+GOAL 10: REDUCED INEQUALITIES
+GOAL 11: SUSTAINABLE CITIES AND COMMUNITIES
+
+GOAL 12: RESPONSIBLE CONSUMPTION AND
+PRODUCTION
+
+GOAL 13: CLIMATE ACTION
+GOAL 14: LIFE BELOW WATER
+GOAL 15: LIFE ON LAND
+
+GOAL 16: PEACE, JUSTICE AND STRONG
+INSTITUTIONS
+
+GOAL 17: PARTNERSHIPS FOR THE GOALS
+
+(d) Higher Education System
+
+Global Citizenship Education: Topics and learning
+objectives, should be counted as the first pedagogical
+guidance from UNESCO on global citizenship educa-
+tion. With such education, young people are able to
+solve problems, make decisions, think critically, com-
+municate ideas effectively and work well with others.
+This not only helps them personally and education-
+ally, but eventually professionally as well. Thus, a
+global education in the classroom is paramount.
+
+(b) Communication
+
+‘The medium is the message’ is an expression coined
+by Canadian educator Marshall McLuhan that is often
+interpreted to mean that the “media” used to commu-
+nicate information have a significant impact on the
+messages they deliver. The form of a message (print,
+visual, musical, etc.) determines the ways in which
+
+21,
+
+23.
+
+that message will be perceived. Modern electronic
+communications (including radio, television, films,
+and computers) would have far-reaching sociologi-
+cal, aesthetic, and philosophical consequences, to the
+point of actually altering the ways in which we experi-
+ence the world.
+
+{c) Mathematical Reasoning and Aptitude
+
+We can solve this question, by counting all the items
+with the difference d (i.e 175 — 168 = 182-175)
+
+Or by using the following formula of Arithmetic
+Progression
+
+a, = 266,a = 168 andd =7
+
+Formula: a, = a + (n-1)d
+
+266 = 168 + (n-1)7
+
+n-1 = (266-168) /7 = 98/7 = 14
+n=14+1=15
+
+Thus, (c) is the correct answer.
+
+- (c) Mathematical Reasoning and Aptitude
+
+The highest denominator in options is 80. We will
+make every fraction equal to 80.
+
+11/16 x 5/5 = 55/80
+
+29/40 x 2/2 = 58/80
+
+5/8 = 5/8 x 10/10 = 50/80
+65/80 — no change required.
+
+Now every fraction has 80 as denominator, we need to
+compare only numerators to compare.
+
+Thus 5/8 is the smallest fraction.
+(d) Research Aptitude
+
+Non-parametric (and Parametric tests): First, we
+need to look at some basic difference between para-
+metric and non-parametric tests.
+
+In parametric tests, the parameters are assumed and
+the population distribution is always known. To cal-
+culate the central tendency, a mean value is used.
+In such tests, we assume normal distribution curve
+(bell shaped curve). For example, if we were to mea-
+sure the height of people (in a population), we take
+some sample, we would see a typical bell-shaped
+curve. This distribution is also called the Gaussian
+distribution.
+
+In statistics, nonparametric tests are methods of sta-
+tistical analysis that do not require a distribution to
+meet the required assumptions to be analyzed (espe-
+cially if the data is not normally distributed). Due
+to this reason, they are sometimes referred to as
+distribution-free tests.
+
+Parametric tests are generally more powerful than the
+
+non-parametric tests, where smaller sample sizes are
+required in parametric tests.
+
+
+
+=== Page 4 ===
+24.
+
+25.
+
+Types Of Non-Parametric Tests
+° 1 Sample Sign Test
+
+¢ 1 Sample Wilcoxon Signed Rank Test
+¢ Friedman Test
+
+¢ Goodman Kruska’s Gamma
+
+® Kruskal-Wallis Test
+
+¢ The Mann-Kendall Trend Test
+¢ Mann-Whitney Test
+
+* Mood’s Median Test
+
+* Spearman Rank Correlation
+(b) Logical Reasoning
+
+Exclusive premise: The fallacy of exclusive premises
+is a syllogistic fallacy committed in a categorical syl-
+logism that is invalid because both of its premises are
+negative.
+
+Illicit major: Illicit major is a formal fallacy commit-
+ted in a categorical syllogism that is invalid because
+its major term is undistributed in the major premise
+but distributed in the conclusion.
+
+O’ type
+_ Particular
+negative) ee
+Etype (Universal Both subject
+negative) and predicate
+
+_ Only predicate
+
+Therefore, no dogs
+are birds.
+Thus, in premises 1 some birds (major term / subject)
+are undistributed. In the conclusion dogs (subject)
+and the birds (predicate) both are distributed.
+
+Undistributed middle: The fallacy of the undistrib-
+uted middle is a formal fallacy that is committed
+when the middle term in a categorical syllogism is not
+distributed in either the minor premise or the major
+premise. It is thus a syllogistic fallacy.
+
+Illicit minor: the fallacy of illicit minor term is undis-
+tributed in the premise but is distributed in the con-
+clusion (but not vice — versa).
+
+(a) Communication
+
+Diagonal communication: The communication
+among the persons at different levels who have no
+direct relationship is called diagonal relationship.
+This communication is effective as hierarchical bind-
+ings are removed and there is a free flow of informa-
+tion, cutting across different positions.
+
+Horizontal communication: communication with
+people at the same level in a hierarchy of peers and
+colleagues is termed as horizontal communication.
+
+This may combine both formal and informal
+communication.
+
+26.
+
+a7.
+
+Intrapersonal communication: it is a communica-
+tion within an individual almost all the times, such as
+talking to oneself, listening to oneself and relating to
+oneself. It includes individual reflection, meditation,
+contemplation and praying to God.
+
+Upward communication: This communication is the
+process of information flowing from the lower levels
+of a hierarchy to the upper levels. It is the process by
+which lower-level company employees can directly
+communicate with upper management to provide
+feedback, complaints or suggestions regarding the
+day-to-day operations of the company.
+
+(a, b, d) People, Development and Environment
+
+Cerebrum: Cerebrum, the largest and uppermost
+portion of the brain. The cerebrum consists of the
+cerebral hemispheres and accounts for two-thirds of
+the total weight of the brain.
+
+Hippocampus: It is a small, curved formation in the
+brain that plays an important role in the limbic sys-
+tem. It is involved in the formation of new memories
+and is also associated with learning and emotions.
+
+Pons: It is a portion of the hindbrain that connects the
+cerebral cortex with the medulla oblongata. It also
+serves as a communications and coordination centre
+between the two hemispheres of the brain.
+
+Thalamus: The thalamus functions as a -relay
+station in which sensory pathways of the spinal cord
+and brainstem form synapses on their way to the cere-
+bral cortex. Specific locations in the thalamus are
+related to specific areas on the body surface and in the
+cerebral cortex.
+
+(b) Higher Education System
+
+Indian Institute of Advance Study (IIAS): This
+research institute is based in Shimla. It was set up by
+the Ministry of Education in 1964 and it started func-
+tioning in 1965.
+
+Indian Biological Science and Research Institute
+CIBRI): It is located in Noida, UP. IBRI is run by the
+academicians from different technological fields
+such as Pharmaceutics, Biotechnology, Bioinformat-
+ics, Information Technology and Mathematics. The
+mandate of IBRI is to undertake research and training
+from basics to industrial level in biosciences domains.
+
+Indian Institute of Soil Science (IISS): This institute
+is linked with ICAR (Indian Council of Agriculture
+Research). ICAR-IISS was established in 1988 at
+Bhopal with a mandate of “Enhancing Soil Productiv-
+ity with Minimum Environmental Degradation”. IISS
+has emerged as a leader in basic and strategic research
+on soils in the country.
+
+
+
+=== Page 5 ===
+Fao oO
+
+09 OF
+
+ma © 0
+
+28.
+
+29.
+
+30.
+
+31.
+
+32,
+
+33.
+
+Indian Institute of Sugarcane Research (IISR):
+IISR was established in Lucknow in 1952. It deals with
+basic issues linked with sugarcane. In 1954, its work-
+ing was taken care of by Government, then in 1969, it
+was transferred to ICAR, New Delhi alongwith other
+central agricultural research institutes.
+
+(d) Mathematical Reasoning and Aptitude
+
+Let number of 20 paise coins = X
+
+Then number of 25 paise coins = 324-—X
+
+Total value = X (20/100) + (324 -X) 25/100 ==71
+X/5 + (324-X)/4=2%71
+
+X = 200
+
+Thus, the number of 20 paise coins is 200.
+
+(c) Higher Education system
+
+This question is linked with good governance, so
+linked with public. Data (statistics) and ICT are also
+going to be part of it. There seems to be some aberra-
+tion in statement II.
+
+(d) Information and Communication Technology
+This is a direct question of matching.
+
+(b) Communication ,
+
+Technological barrier: low bandwidth of internet is
+example of technological barrier.
+
+Psychological barrier: Complexity of ideas and per-
+sonal attitude towards technology is an example psy-
+chological barrier.
+
+Geographical barriers: physical locations of com-
+municators is a geographical barrier.
+
+Semantic barrier: communication barriers related to
+language and the meaning of the words.
+
+(a) Mathematical Reasoning and Aptitude
+Statement I
+
+Amount = 280 (1+10/100)(1+5/100)
+
+= 280(11/10) (21/20) = ¥ 323.4
+
+Compound Interest = Amount ~ Principal
+
+= 323.4-280 = % 43.4
+
+The given answer is % 44.3.
+
+Statement II
+
+This question is based on simple interest, so interest
+will be ¥ 5.6 on = 100 every annum. In 15 years, total
+SI will be 15 x 5.6 = % 84. Thus, amount will not be
+doubled, but much less than that.
+
+Thus, both statements are not correct.
+
+(d) Information and Communication Technology
+
+In computing, the Post Office Protocol is an applica-
+tion—layer Internet standard protocol used by e-mail
+clients to retrieve e-mail from a mail server, POP ver-
+sion 3 is the version in common use.
+
+34,
+
+35.
+
+The Post Office Protocol provides access via an Inter-
+net Protocol (IP) network for a user client application
+to a mailbox (maildrop) maintained on a mail server.
+Thus, the protocol used when receiving emails from
+the email server.
+
+(a) Higher Education System
+
+CBCS stands for the choice~based credit system.
+CBCS grading systems surpass the “conventional per-
+centage’ and grading means to evaluate a student’s
+academic skills. CBCS follows a more standardised
+way of assessment and examination management.
+CBCS software grading system is uniform across all
+educational institutes. It follows the semester pattern
+and not the annual examination pattern.
+
+UGC also follows a 10-point grading system, with 0
+being absent/fail and 10 being outstanding.
+
+Evaluation in choice Based Credit System in
+Higher Education
+
+0 (Outstanding)
+A+ (Excellent)
+B+ (Good)
+_B (Above Average) a
+
+Cc (Average)
+
+P(Pass) Ue 4
+F (Fail) or Absent (AB) (6)
+
+(a) Teaching Aptitude/ ICT
+DRUPAL: Drupal is a free software package: that
+allows an individual or a community of users to easily
+publish, manage and organize a wide variety of con-
+tent on a website.
+
+Drupal is used by mooKIT platform for open source
+content management system.
+
+JOOMLA: This uses to build, organize, manage and
+publish content for websites, blogs, Intranets and
+mobile applications.
+
+Moodle: Moodle is a free and open-source learning
+management system (LMS) written in PHP and dis-
+tributed under GNU (General Public licence). Moo-
+die is used for blended learning, distance education,
+flipped classroom and other e-learning projects in
+schools, universities, workplaces and other sectors
+SAKAI: Sakai is a free, community source, educa-
+tional software platform designed to support teach-
+ing, research and collaboration. Systems of this type
+are also known as Course Management Systems
+(CMS), Learning Management Systems (LMS), or Vir-
+tual Learning Environments (VLE).
+
+
+
+=== Page 6 ===
+2.50
+
+36.
+
+37.
+
+38.
+
+(d) Information and Communication Technology
+
+File Transfer Protocol (FTP): FTP is a standard com-
+munication protocol used for the transfer of computer
+files from a server to a client on a computer network.
+FTP is built on a client-server model architecture
+using separate control and data connections between
+the client and the server. FTP users may authenticate
+themselves with a clear-text sign-in protocol, nor-
+mally in the form of a username and password. FTP
+is often secured with SSL/TLS (FTPS) or replaced
+with SSH File Transfer Protocol (SFTP) for secure
+transmission.
+
+(a) People, Development and Environment
+
+According to Urie Bronfenbrenner’s biological model
+of human development, microsystem constitutes
+immediate family, schools:and neighbourhood.
+
+(a) People, Development and Environment
+
+Statement I: small amount of atmospheric Nitrogen
+dioxide is produced from polluting sources.
+
+NO, is an intermediate in the industrial synthesis of
+nitric acid. It is largely used in the production of fer-
+tilisers also. At higher temperatures it is a reddish—
+brown gas. It can be fatal if inhaled in large quantity.
+
+Statement II: Most of the atmospheric NO, is
+produced due to photochemical reactions in the
+atmosphere.
+
+Nitrogen dioxide, NO,, present in air is known to be
+photochemically active due to the presence of an
+unpaired electron. NO, molecule reaches a higher
+level of energy when it absorbs a photon of light with
+energy, which converts the ground state molecule to
+electronically excited state molecule. NO,, Ozone and
+PAN show photochemical reactions and photochemi-
+cal smog is formed.
+
+39.(b) Mathematical Reasoning and Aptitude
+
+40.
+
+If each averaged number, X, is multiplied by an
+another number, Y, then new average will be multipli-
+cation of those numbers, that is X.Y. Thus, answer to
+this question will be 7x11 = 77.
+
+(b) People, Development and Environment
+
+Diarrhoea is a type of waterborne disease which is
+caused by virus, bacteria and protozoa. The main
+symptoms. of diarrhea are frequent loose, watery
+stools and a pressing urge to have a bowel movement.
+The most common causes of acute and persistent
+diarrhea are infections, travelers’ diarrhea, and side
+effects of medicines. Many viruses cause diarrhea,
+
+‘ including norovirus link and rotavirus link. Viral gas-
+
+41.
+
+troenteritis is a common cause of acute diarrhea.
+(c) Teaching Aptitude
+According to Piaget, the ability to solve conservation
+
+42.
+
+43.
+
+problems depends on having an understanding of
+three basic aspects of reasoning: identity, compensa-
+tion and reversibility.
+
+Jean Piaget mentioned the following stages for cogni-
+tive development: :
+
+(i) Sensory Period (0-2 years)
+
+(ii) Pre —- operational period (2-7 years)
+
+(iii) Concrete operational period (7 —-11 years)
+
+(iv) Formal operation period (11-15 years)
+
+The stage of classification depends on students’ abil-
+ity to focus on a single characteristic of objects in a set
+and group of objects according to that characteristic.
+Thus, statement II is incorrect.
+
+(b) Research Aptitude
+
+Descriptive Hypothesis: This contains only one
+variable so it is called a univariate hypothesis. This
+typically states the existence, size, form or distribu-
+tion of some variable. It describes the situation or col-
+lects the data, the same as it has happened without
+adding our own assumptions as a researcher.
+
+Null Hypothesis: the null hypothesis (often denoted
+Ho) is that two possibilities are the same. The null
+hypothesis is that the observed difference is due to
+chance alone. Using statistical tests, it is possible to cal-
+culate the likelihood that the null hypothesis is true.
+Explanatory Hypothesis: This hypothesis guides the
+cause and effect relationship between two variables.
+For example, when salaries increase, then spending
+on food items also increase.
+
+Intervening and confounding variables add to the
+impact of independent variables on dependent
+variables.
+
+(c) Logical Reasoning
+
+The denotative meaning of a word is simply the
+commonly accepted meaning or the definition that
+you would find if you were to look up that word in a
+dictionary.
+
+Typically, the connotative meaning of a word has
+more of an emotional association and is more likely
+to trigger an emotional response than the denotative
+meaning.
+
+44, (b) Logical Reasoning
+
+45.
+
+Truth and falsehood are predicates of a statement and
+validity and invalidity are predicates of an argument.
+
+(d)
+
+46. (b)
+
+47.
+48.
+49,
+
+(b)
+(d)
+(a)
+
+50. (a)
+
