@@ -40,8 +40,7 @@ def push_chunk(title, summary, text):
             "metadata": {
                 "title": title,
                 "summary": summary,
-                "text": text,
-                "source": "parsed_chunks"
+                "text": text
             }
         }
     ])

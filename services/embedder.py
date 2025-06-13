@@ -1,12 +1,19 @@
-from sentence_transformers import SentenceTransformer
+# services/embedder.py
 
-# Load model once
-_model = SentenceTransformer('all-MiniLM-L6-v2')
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def get_embedding(text: str) -> list:
     try:
-        embedding = _model.encode(text)
-        return embedding.tolist()
+        response = client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text
+        )
+        return response.data[0].embedding
     except Exception as e:
         print(f"[Embedding Error] {str(e)}")
         return []
