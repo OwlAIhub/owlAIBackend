@@ -55,17 +55,25 @@ def set_session_data(session_id: str, updates: dict):
 
 # 📚 QUIZ SESSION MANAGEMENT
 
-def save_quiz_session(session_id: str, quiz_obj: dict):
-    memory = get_session_state(session_id)
-    memory["quiz_session"] = quiz_obj
-    update_session_state(session_id, memory)
+# def save_quiz_session(session_id: str, quiz_obj: dict):
+#     memory = get_session_state(session_id)
+#     memory["quiz_session"] = quiz_obj
+#     update_session_state(session_id, memory)
 
-def get_quiz_session(session_id: str):
-    memory = get_session_state(session_id)
-    return memory.get("quiz_session", None)
+# def get_quiz_session(session_id: str):
+#     memory = get_session_state(session_id)
+#     return memory.get("quiz_session", None)
 
-def clear_quiz_session(session_id: str):
-    memory = get_session_state(session_id)
-    if "quiz_session" in memory:
-        del memory["quiz_session"]
-    update_session_state(session_id, memory)
+# def clear_quiz_session(session_id: str):
+#     memory = get_session_state(session_id)
+#     if "quiz_session" in memory:
+#         del memory["quiz_session"]
+#     update_session_state(session_id, memory)
+# or your firestore init
+
+def get_user_name(user_id: str) -> str:
+    user_ref = db.collection("users").document(user_id)
+    doc = user_ref.get()
+    if doc.exists:
+        return doc.to_dict().get("firstname", "")
+    return ""

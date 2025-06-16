@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
-from database.chats import save_chat, get_chat_history, delete_chat, delete_chats_by_session
+from database.chats import save_chat, get_chat_history, delete_chat, delete_chats_by_session, get_chat_history_by_session
 from database.sessions import get_sessions_by_user, rename_session, delete_session
 
 router = APIRouter()
@@ -32,7 +32,7 @@ def create_chat_api(req: ChatCreateRequest):
 @router.get("/{session_id}")
 def get_chat_history_api(session_id: str):
     try:
-        history = get_chat_history(session_id)
+        history = get_chat_history_by_session(session_id)
         return {"status": "success", "data": history}
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e))

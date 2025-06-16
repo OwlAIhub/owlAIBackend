@@ -1,7 +1,4 @@
-# services/llm.py
-
 import os
-import json
 from openai import OpenAI
 from dotenv import load_dotenv
 from services.vector_search import query_vector_store
@@ -11,25 +8,37 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 MODEL = "gpt-3.5-turbo"
 
 faculty_persona = """
-You are OwlAI — a friendly, Hinglish-speaking UGC NET mentor for Tier 2/3 students.
-Talk like a real faculty who explains topics in parts, checks understanding, gives quizzes, and never leaves a topic incomplete.
-Your job is to teach students like they are beginners and support them like a buddy.
+You are OwlAI — a warm, Hinglish-speaking UGC NET mentor for Tier 2/3 students.
+
+You behave like a real faculty who:
+- teaches slowly, step by step
+- uses Hinglish naturally, unless the user asks otherwise
+- uses examples from classroom or everyday life
+- explains topics like the student is a beginner.
+- offers summaries to keep learning continuous
+- never leaves a topic incomplete
+- avoids complex jargon unless needed, and explains it if used
+- adapts to the user's mood (motivational, confused, excited, etc.)
 """.strip()
 
 
-def build_prompt(query, intent, language, session_id, user_id):
-    """
-    Build a prompt based solely on the single active topic stored in session.
-    Any session_state or learning_stage logic has been removed.
-    """
-    # Fetch the active topic from session
+def build_prompt(query, intent, language, session_id, user_id, name=None, ):
     from services.session_memory import get_session_state
     session = get_session_state(session_id)
     topic = session.get("active_topic", "UGC NET")
 
-    # Pull context for that topic
-    db_chunks = query_vector_store(topic)
-    db_context = "\n\n".join(c.get("page_content", "") for c in db_chunks) or "No relevant notes found."
+    # RAG only for academic intents
+    if intent in ["chapter_teaching", "concept_explanation"]:
+        db_chunks = query_vector_store(topic)
+        db_context = "\n\n".join(c.get("page_content", "") for c in db_chunks) or "No relevant notes found."
+    else:
+        db_chunks = []
+        db_context = ""
+        
+    
+    greeting_line = f"Namaste {name}!" if name else ""
+    greeting_section = f"==  Greet ==\n{greeting_line}\n\n" if greeting_line else ""
+
 
 
     persona = (
@@ -38,26 +47,50 @@ def build_prompt(query, intent, language, session_id, user_id):
         f"Please tailor your response accordingly.\n"
     )
 
+    # Instruction varies by intent
+    if intent == "concept_explanation":
+        task_instruction = f"""
+        - Explain the topic **{topic}** in Hinglish using 4–5 simple bullet points.
+        - Use examples from daily life or classroom.
+        - End with: ““Want to move to next concept?” or "want to deep dive into {topic}".
+        """
+    elif intent in ["emotion", "motivational"]:
+        task_instruction = """
+        - Motivate the student in Hinglish.
+        - Use friendly, human tone.
+        - Remind them that progress matters more than perfection.
+        - End with: “Chalein, thoda aur padhein?”
+        """
+    else:
+        task_instruction = """
+        - Answer the query in Hinglish.
+        - Use academic reasoning if needed.
+        """
 
+    # Build prompt content
     prompt_content = f"""
-== 🧠 You are OwlAI ==
+== You are OwlAI ==
 A Hinglish-speaking UGC NET mentor. Act like a real faculty.
 
-== 🎯 Student Query ==
+
+{greeting_section}
+
+==  Student Query ==
 {query}
 
-== 📚 Topic ==
+==  Topic ==
 {topic}
 Language: {language}
 
-== 📖 Study Material ==
-{db_context}
+==  Study Material ==
+{db_context if db_context else "No notes needed for this query."}
 
-Now, do the following based on the query:
-- If the user asks for an explanation, explain {topic} in Hinglish in 4–5 bullet points.
-- If they ask for a quiz, provide 2 MCQs with feedback.
-- After your response, always ask: “Ready for the next topic or want to try a quiz?”
-- Never break flow or wander off-topic.
+==  Reminder ==
+This chat is private and secure — no one can access it except you and OwlAI.
+OwlAI is created by students and teachers who’ve been in your shoes — here to help you crack UGC NET Paper 1 with warmth and clarity.
+
+==  Instructions ==
+{task_instruction.strip()}
 """.strip()
 
     return [
@@ -77,43 +110,6 @@ def get_response_from_llm(prompt):
     except Exception as e:
         print("[LLM ERROR]", e)
         return "Oops! Something went wrong while generating the response."
-
-
-def generate_quiz_questions(topic: str, num_questions: int = 5):
-    system_prompt = f"""
-You are OwlAI, a UGC NET mentor.
-
-Generate exactly {num_questions} multiple-choice questions (MCQs) strictly related to the topic: "{topic}" for UGC NET Paper 1.
-
-Format your response as a JSON array with each item structured like this:
-
-{{
-  "question": "What is teaching aptitude?",
-  "options": ["A. Ability to teach", "B. Ability to dance", "C. Ability to sing", "D. Ability to cook"],
-  "answer": "A"
-}}
-
-🚫 Do not add explanations, extra text, or comments.
-✅ Only output a JSON array of questions.
-""".strip()
-
-    messages = [{"role": "system", "content": system_prompt}]
-    response = get_response_from_llm(messages)
-
-    try:
-        return json.loads(response)
-    except Exception as e1:
-        print("[QUIZ ERROR] Initial parse failed:", e1)
-        fallback_prompt = [
-            {"role": "system", "content": "Please reformat the quiz strictly as a JSON array like this:"},
-            {"role": "user", "content": response}
-        ]
-        fallback_response = get_response_from_llm(fallback_prompt)
-        try:
-            return json.loads(fallback_response)
-        except Exception as e2:
-            print("[QUIZ ERROR] Fallback also failed:", e2)
-            return []
 
 
 def generate_session_summary(session_id: str) -> str:
@@ -139,7 +135,6 @@ Summarize your recent learning journey with the student in second-person tone.
 Mention:
 - What the student asked or learned
 - What you explained
-- Any quiz they participated in
 - Encourage what they can do next
 
 Be short, human, and direct. Speak to the student.
@@ -159,54 +154,61 @@ Be short, human, and direct. Speak to the student.
         return "I couldn't generate a summary at the moment. Try again later."
 
 
-def generate_quiz_step_response(user_answer, quiz_state, tone, language):
-    questions = quiz_state["questions"]
-    index = quiz_state["current_index"]
-
-    if index >= len(questions):
-        return "🎉 Quiz complete! Great job!"
-
-    current_q = questions[index]
-    correct_option = current_q["answer"].strip().upper()
-
-    response = f"Question {index + 1}: {current_q['question']}\n"
-    for opt in current_q["options"]:
-        response += f"{opt}\n"
-
-    if user_answer is not None:
-        cleaned = user_answer.strip().upper()
-        is_correct = cleaned == correct_option
-        quiz_state.setdefault("answers", []).append({
-            "question": current_q["question"],
-            "user_answer": cleaned,
-            "correct_answer": correct_option,
-            "is_correct": is_correct
-        })
-        response += "\n✅ Sahi jawab! Well done!" if is_correct else f"\n❌ Galat jawab. Correct answer: {correct_option}"
-        quiz_state["current_index"] += 1
-    else:
-        response += "\n\nPlease choose your answer (A/B/C/D):"
-
-    return response
-
-
 def generate_followup_prompt(session_id: str) -> str:
     from services.session_memory import get_session_state
 
     session = get_session_state(session_id)
     topic = session.get("active_topic", "UGC NET")
+    history = session.get("history", [])[-3:]  # last 3 messages
 
-    prompt = f"""
-You are OwlAI — a friendly UGC NET faculty.
+    # Format history into readable string
+    formatted_history = "\n".join([
+        f"User: {msg['query']}\nOwlAI: {msg['response']}" for msg in history
+    ])
 
-The student has just covered: {topic}
+    followup_prompt = [
+        {
+            "role": "system",
+            "content": """
+You are OwlAI — a warm, friendly UGC NET teacher.
+You speak like a human teacher, but do not specify your gender.
 
-Suggest ONE next step in Hinglish:
-- “Shall we try a quick quiz on {topic}?”
-- “Ready for the next topic?”
-- “Would you like a quick summary again?”
+Based on the recent conversation with the student, suggest one natural next step they might take. Keep it short, warm, and interactive.
 
-Keep it short and warm.
-""".strip()
+Possibilities: offer summary, suggest next topic, or just encouragement to continue.
 
-    return get_response_from_llm([{"role": "system", "content": prompt}])
+Always use Hinglish.
+"""
+        },
+        {
+            "role": "user",
+            "content": f"""
+== Conversation History ==
+{formatted_history}
+
+== Current Topic ==
+{topic}
+
+What would be the best next suggestion?
+"""
+        }
+    ]
+
+    return get_response_from_llm(followup_prompt)
+
+
+def generate_chat_title(query: str, response: str) -> str:
+    prompt = [
+        {"role": "system", "content": "You are OwlAI — an academic chatbot for UGC NET. Generate a short and clear title (max 10 words) for the user's question and your answer."},
+        {"role": "user", "content": f"User asked: {query}\n\nBot replied: {response}"}
+    ]
+    try:
+        reply = client.chat.completions.create(
+            model=MODEL,
+            messages=prompt,
+            temperature=0.5
+        )
+        return reply.choices[0].message.content.strip().replace('"', '').removeprefix("Title:").strip()
+    except Exception as e:
+        print("[TITLE ERROR]", e)
+        return query[:40]

@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from database.sessions import create_session, update_session, end_session
 from pydantic import BaseModel
 from typing import Optional
+import uuid
 
 router = APIRouter()
 
@@ -32,3 +33,13 @@ def end_session_api(session_id: str):
         return {"status": "ended"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/init-anon")
+def init_anonymous_session():
+    anon_user_id = f"anon_{uuid.uuid4().hex[:8]}"
+    session_id = create_session(anon_user_id, is_anonymous=True)
+    return {
+        "user_id": anon_user_id,
+        "session_id": session_id
+    }

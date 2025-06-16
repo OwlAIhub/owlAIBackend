@@ -3,7 +3,7 @@ from firebase_admin import firestore
 import uuid
 
 # Create a new session
-def create_session(user_id, session_type="study", device_type="mobile", ip_address="0.0.0.0", question_ids=None):
+def create_session(user_id, session_type="study", device_type="mobile", ip_address="0.0.0.0", question_ids=None, is_anonymous=False):
     session_id = str(uuid.uuid4())
     session_ref = db.collection("sessions").document(session_id)
     session_ref.set({
@@ -15,18 +15,10 @@ def create_session(user_id, session_type="study", device_type="mobile", ip_addre
         "session_type": session_type,
         "device_type": device_type,
         "ip_address": ip_address,
+        "is_anonymous": is_anonymous,
+        "message_count": 0,
         "created_at": firestore.SERVER_TIMESTAMP,
-        "updated_at": firestore.SERVER_TIMESTAMP,
-        
-        "learning_state": {
-            "current_unit": "UGC NET",
-            "current_subtopic": "Introduction",
-            "learning_stage": "explanation",
-            "has_done_quiz": False,
-            "last_question_type": "None"
-        },
-        "history": [],
-        "quiz_state": {}
+        "updated_at": firestore.SERVER_TIMESTAMP
     })
     print(f"Session {session_id} started for user {user_id}!")
     return session_id
@@ -51,9 +43,7 @@ def end_session(session_id):
 # Get all sessions by user, newest first
 def get_sessions_by_user(user_id):
     sessions_ref = db.collection("sessions").where("user_id", "==", user_id).order_by("start_time", direction=firestore.Query.DESCENDING).stream()
-    for doc in sessions_ref:
-        return doc.to_dict()
-    return None
+    return [doc.to_dict() for doc in sessions_ref]
 
 # Rename session (used for custom titles)
 def rename_session(session_id, new_name):
