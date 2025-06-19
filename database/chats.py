@@ -2,6 +2,7 @@ from database.firebase_connection import db
 from firebase_admin import firestore
 import uuid
 
+# Save chat in both "chats" (top-level) and nested under "sessions/{session_id}/chats"
 def save_chat(session_id, user_id, subject, unit, topic, sub_topic, question_text, response_text,
               source_ref_type, source_ref_id=None, media_type=None, media_url=None,
               topic_tags=None, feedback_rating=None, title=None, intent=None, is_professional=False):
@@ -10,8 +11,8 @@ def save_chat(session_id, user_id, subject, unit, topic, sub_topic, question_tex
         return None
 
     chat_id = str(uuid.uuid4())
-    chat_ref = db.collection("chats").document(chat_id)
-    chat_ref.set({
+
+    chat_data = {
         "chat_id": chat_id,
         "session_id": session_id,
         "user_id": user_id,
@@ -33,28 +34,47 @@ def save_chat(session_id, user_id, subject, unit, topic, sub_topic, question_tex
         "is_professional": is_professional,
         "created_at": firestore.SERVER_TIMESTAMP,
         "updated_at": firestore.SERVER_TIMESTAMP
-    })
-    print(f"Chat {chat_id} saved successfully!")
+    }
+
+    # 🔹 Save in top-level "chats"
+    chat_ref = db.collection("chats").document(chat_id)
+    chat_ref.set(chat_data)
+
+    # 🔹 Also save under "sessions/{session_id}/chats"
+    nested_ref = db.collection("sessions").document(session_id).collection("chats").document(chat_id)
+    nested_ref.set(chat_data)
+
+    print(f"[Both] Chat {chat_id} saved in top-level and nested under session {session_id}")
     return chat_id
 
+# Get all chats of a user (from top-level)
 def get_chat_history(user_id):
     chats_ref = db.collection("chats").where("user_id", "==", user_id).order_by("timestamp")
     docs = chats_ref.stream()
     return [doc.to_dict() for doc in docs]
 
+# Get chats by session (from top-level)
 def get_chat_history_by_session(session_id):
     chats_ref = db.collection("chats").where("session_id", "==", session_id).order_by("timestamp")
     docs = chats_ref.stream()
     return [doc.to_dict() for doc in docs]
 
+# Get nested chats by session (optional if you prefer using nested structure)
+def get_nested_chats_by_session(session_id):
+    nested_ref = db.collection("sessions").document(session_id).collection("chats").order_by("timestamp")
+    docs = nested_ref.stream()
+    return [doc.to_dict() for doc in docs]
+
+# Delete a specific chat from top-level only
 def delete_chat(chat_id):
     chat_ref = db.collection("chats").document(chat_id)
     chat_ref.delete()
-    print(f"Chat {chat_id} deleted successfully!")
+    print(f"Chat {chat_id} deleted from top-level successfully!")
 
+# Delete all chats from top-level by session
 def delete_chats_by_session(session_id):
     chats_ref = db.collection("chats").where("session_id", "==", session_id)
     docs = chats_ref.stream()
     for doc in docs:
         doc.reference.delete()
-    print(f"All chats in session {session_id} deleted")
+    print(f"All top-level chats in session {session_id} deleted")
