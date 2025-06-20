@@ -78,3 +78,11 @@ def is_mobile_registered(mobile_number):
     users_ref = db.collection("users")
     query = users_ref.where("mobile_number", "==", mobile_number).get()
     return len(query) > 0
+
+
+def get_user_language(user_id: str) -> str:
+    db = firestore.client()
+    doc = db.collection("users").document(user_id).get()
+    if doc.exists:
+        return doc.to_dict().get("language", "HINGLISH")
+    return "HINGLISH"

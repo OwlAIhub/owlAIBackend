@@ -26,47 +26,82 @@ You are OwlAI — a warm, friendly, and helpful UGC NET mentor who speaks natura
 
 def build_prompt(query, intent, language, session_id, user_id, name=None):
     from services.session_memory import get_session_state
+
     session = get_session_state(session_id)
     topic = session.get("active_topic", "UGC NET")
 
+    # Fetch study material if needed
     if intent in ["chapter_teaching", "concept_explanation"]:
         db_chunks = query_vector_store(topic)
         db_context = "\n\n".join(c.get("page_content", "") for c in db_chunks) or "No relevant notes found."
     else:
         db_context = ""
 
+    # Greeting section
     greeting_line = f"Namaste {name}!" if name else ""
     greeting_section = f"==  Greet ==\n{greeting_line}\n\n" if greeting_line else ""
 
-    persona_context = (
-        f"You are chatting with user `{user_id}`.\n"
-        f"The user’s intent is `{intent}` and preferred language is `{language}`.\n"
-        f"Use Hinglish naturally and avoid hard words.\n"
-        f"Stick to casual tone — not textbook tone.\n"
-    )
-
-    if intent == "concept_explanation":
-        task_instruction = f"""
-        - Explain **{topic}** using easy Hinglish and 4–5 simple points.
-        - Use daily-life ya classroom examples.
-        - Keep it student-friendly and engaging.
-        """
-    elif intent in ["emotion", "motivational"]:
-        task_instruction = """
-        - Give friendly motivation in Hinglish.
-        - Remind them: progress > perfection.
-        - Keep it student-friendly and engaging.
-        """
+    # Persona context — language-specific
+    if language == "HINGLISH":
+        persona_context = (
+            f"You are chatting with user `{user_id}`.\n"
+            f"The user’s intent is `{intent}` and preferred language is `HINGLISH`.\n"
+            f"Use natural Hinglish — mix Hindi and English as a Tier 2/3 teacher would.\n"
+            f"Avoid robotic textbook Hindi. Use daily Hindi-English mix.\n"
+            f"⚠️ Do not default to full English.\n"
+        )
     else:
-        task_instruction = """
-        - Answer using Hinglish, in a natural tone.
-        - Keep it real — avoid robotic/formal lines.
-        - Keep it student-friendly and engaging.
-        """
+        persona_context = (
+            f"You are chatting with user `{user_id}`.\n"
+            f"The user’s intent is `{intent}` and preferred language is `ENGLISH`.\n"
+            f"Respond strictly in English only — avoid using Hindi.\n"
+            f"Tone should be clear, warm, and student-friendly.\n"
+        )
 
+    # Task instructions — intent & language based
+    if intent == "concept_explanation":
+        if language == "HINGLISH":
+            task_instruction = f"""
+            - Explain **{topic}** in simple Hinglish (mix Hindi + English).
+            - Use everyday analogies or classroom examples.
+            - Avoid robotic textbook Hindi.
+            - Speak like a friendly Tier 2/3 teacher.
+            """
+        else:
+            task_instruction = f"""
+            - Explain **{topic}** in clear English only.
+            - Do not use Hindi.
+            - Use examples, keep it structured and beginner-friendly.
+            """
+    elif intent in ["emotion", "motivational"]:
+        if language == "HINGLISH":
+            task_instruction = """
+            - Provide friendly motivation in Hinglish.
+            - Remind them: progress > perfection.
+            - Use clear mix of Hindi-English like a caring teacher.
+            """
+        else:
+            task_instruction = """
+            - Motivate the user in clear English.
+            - Encourage without sounding robotic.
+            - Use warm, human-like words only in English.
+            """
+    else:
+        if language == "HINGLISH":
+            task_instruction = """
+            - Answer naturally in Hinglish.
+            - Do not default to full English or robotic Hindi.
+            """
+        else:
+            task_instruction = """
+            - Answer in proper English only.
+            - Keep it structured, simple, and human-like.
+            """
+
+    # Final Prompt
     prompt_content = f"""
 == You are OwlAI ==
-UGC NET mentor, explaining in easy Hinglish, like a real teacher.
+UGC NET mentor, explaining like a real teacher.
 
 {greeting_section}
 
@@ -75,7 +110,6 @@ UGC NET mentor, explaining in easy Hinglish, like a real teacher.
 
 ==  Topic ==
 {topic}
-
 
 ==  Study Material ==
 {db_context if db_context else "No extra notes needed for this query."}
@@ -91,6 +125,9 @@ This chat is private — just between OwlAI and the student. Guide them with war
         {"role": "system", "content": faculty_persona + "\n\n" + persona_context},
         {"role": "user", "content": prompt_content}
     ]
+
+
+
 
 
 def get_response_from_llm(prompt):

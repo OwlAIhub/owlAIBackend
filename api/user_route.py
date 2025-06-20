@@ -85,3 +85,11 @@ def delete_user_api(user_id: str):
         return {"status": "deleted"}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@router.get("/user/check-mobile/{mobile_number}")
+def check_mobile_registered(mobile_number: str):
+    try:
+        registered = is_mobile_registered(mobile_number)
+        return {"registered": registered}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
